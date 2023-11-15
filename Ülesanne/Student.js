@@ -1,33 +1,21 @@
-class Person {
-    constructor(name) {
-        this.name = name
-    }
-    setDataOfBirth(year) {
-        this.year = year
-    }
-    getDateOfBirth() {
-        return this.year
-    }
-    age() {
-        return new Date().getFullYear() - this.year
-    }
-    getName() {
-        return this.name
-    }
-    description() {
-        return this.name + ' is ' + this.age() + ' years old.'
-    }
-}
+import Person from './Person.js';
 
-class Student extends Person {
-    constructor(name) {
-        super(name)
+class Student extends Person{
+    constructor(person) {
+        super(person.name);
         this.grades = []
         this.ID = null
     }
     addGrade(course, grade) {
-        this.grades.push({course, grade})
+        const existingCourse = this.grades.find((C) => C.course === course.name);
+    
+        if (existingCourse) {
+            existingCourse.grades.push(grade);
+        } else {
+            this.grades.push({ course: course.name, grades: [grade] });
+        }
     }
+    
     setID(ID) {
         if (this.ID === null) {
             this.ID = ID
@@ -39,7 +27,15 @@ class Student extends Person {
         return this.grades
     }
     getAverageGrade() {
-
+        let sum = 0
+        let count = 0
+        for (let course of this.grades) {
+            for (let grade of course.grades) {
+                sum += grade
+                count++
+            }
+        }
+        return sum / count
     }
     description() {
         return super.description() + ' Student ID: ' + this.ID
