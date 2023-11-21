@@ -1,6 +1,6 @@
-const Student = require('../Classes/Student').Student
-const Course = require('../Classes/Course').Course
-const School = require('../Classes/School').School
+const Student = require('../Classes/Student')
+const Course = require('../Classes/Course')
+const School = require('../Classes/School')
 
 const school = new School("Awesome School")
 const student1 = new Student("John Smith")
